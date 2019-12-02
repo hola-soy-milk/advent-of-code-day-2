@@ -1,2 +1,5 @@
-# advent-of-code-day-2
-https://adventofcode.com/2019/day/2
+# Advent Of Code 2019 Day 2: 1202 Program Alarm
+
+## Running the solution
+
+    $ node index.js
