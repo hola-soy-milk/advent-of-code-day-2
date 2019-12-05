@@ -1,4 +1,4 @@
-# Advent Of Code 2019 Day 2: 1202 Program Alarm
+# Advent Of Code 2019 Day 5: Sunny with a Chance of Asteroids
 
 ## Running the solution
 
