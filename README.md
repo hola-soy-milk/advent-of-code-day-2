@@ -1,4 +1,4 @@
-# Advent Of Code 2019 Day 5: Sunny with a Chance of Asteroids
+# Advent Of Code 2019 Day 7: Amplification Circuit
 
 ## Running the solution
 
