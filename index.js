@@ -8,7 +8,7 @@ Number.prototype.pad = function(size) {
       return s;
 }
 
-runDiagnostic = (program, input) => {
+runDiagnostic = (program, inputs) => {
   var i = 0
   var diagnostic = 0
   while (program[i] !== 99) {
@@ -33,7 +33,7 @@ runDiagnostic = (program, input) => {
       i += 4
     } else if (opCode === 3) {
       destination = program[i+1]
-      program[destination] = input
+      program[destination] = inputs.pop()
       i += 2
     } else if (opCode === 4) {
       destination = program[i+1]
@@ -62,13 +62,30 @@ runDiagnostic = (program, input) => {
   return diagnostic
 }
 
-let amplifications = permutations([1,2,3,4,5]).map(permutation => {
-  let ampA = runDiagnostic(freshProgram(), 0, permutation[0]);
-  let ampB = runDiagnostic(freshProgram(), ampA, permutation[1]);
-  let ampC = runDiagnostic(freshProgram(), ampB, permutation[2]);
-  let ampD = runDiagnostic(freshProgram(), ampC, permutation[3]);
-  let ampE = runDiagnostic(freshProgram(), ampD, permutation[4]);
+let permutations = [];
+
+const permute = (numbers, m = []) => {
+  if (numbers.length === 0) {
+    permutations.push(m)
+  } else {
+    for (let i = 0; i < numbers.length; i++) {
+      let curr = numbers.slice();
+      let next = curr.splice(i, 1);
+      permute(curr.slice(), m.concat(next))
+    }
+  }
+}
+permute([0,1,2,3,4])
+
+
+
+let amplifications = permutations.map(permutation => {
+  let ampA = runDiagnostic(freshProgram(), [0, permutation[0]]);
+  let ampB = runDiagnostic(freshProgram(), [ampA, permutation[1]]);
+  let ampC = runDiagnostic(freshProgram(), [ampB, permutation[2]]);
+  let ampD = runDiagnostic(freshProgram(), [ampC, permutation[3]]);
+  let ampE = runDiagnostic(freshProgram(), [ampD, permutation[4]]);
   return ampE;
 })
 
-console.log(Math.max(amplifications))
+console.log(Math.max(...amplifications))
